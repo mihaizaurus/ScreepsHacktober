@@ -3,6 +3,7 @@ module.exports = {
     const harvs = 3;
     const upg = 4;
     const build = 1;
+    const repair = 1;
 
     // Set the property in memory if doesn't exist ?Necessary?
     if (room.memory.spawnLimits) {
@@ -13,6 +14,7 @@ module.exports = {
       harvester: harvs,
       upgrader: upg,
       builder: build,
+      repairer: repair,
     };
     room.memory.spawnLimits = spawnLimits;
   },
@@ -37,6 +39,11 @@ StructureSpawn.prototype.spawnNextCreep = function () {
     (creep) =>
       creep.memory.role == "🛠 Builder" && creep.memory.homeRoom === room.name
   ).length;
+  const repairbotCount = _.filter(
+    Game.creeps,
+    (creep) =>
+      creep.memory.role == "🛠 Repair Bot" && creep.memory.homeRoom === room.name
+  ).length;
 
   //check units based on max, only if at least 300 energy
   if (energy >= 300) {
@@ -46,6 +53,8 @@ StructureSpawn.prototype.spawnNextCreep = function () {
       this.spawnWorker("🙌 Upgrader", "Gerald");
     } else if (builderCount < room.memory.spawnLimits["builder"]) {
       this.spawnWorker("🛠 Builder", "Billy");
+    } else if (repairbotCount < room.memory.spawnLimits["builder"]) {
+      this.spawnWorker("🛠 Repair Bot", "Reginald");
     }
   }
 };
