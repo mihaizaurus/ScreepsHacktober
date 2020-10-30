@@ -1,4 +1,4 @@
-// {🛠 Repairer}
+// {🛠 Repair Bot}
 var roleRepairer = {
     /** @param {Creep} creep **/
     run: function (creep) {
@@ -12,7 +12,9 @@ var roleRepairer = {
       }
   
       if (!creep.memory.working) {
-        var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+        var targets = creep.room.find(FIND_STRUCTURES, {
+          filter: object => object.hits < (object.hitsMax/4)
+         });
         if (targets.length) {
           if (creep.build(targets[0]) == ERR_NOT_IN_RANGE) {
             creep.moveTo(targets[0], {

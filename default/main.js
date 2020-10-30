@@ -2,6 +2,7 @@ const roles = {
   harvester: { name: "⛏ Harvester", source: require("role.harvester") },
   upgrader: { name: "🙌 Upgrader", source: require("role.upgrader") },
   builder: { name: "🛠 Builder", source: require("role.builder") },
+  repairer: { name: "🛠 Repair Bot", source: require("role.repairbot") },
 };
 
 const SpawnManager = require("spawnManager");
